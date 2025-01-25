@@ -52,7 +52,6 @@ function load() {
 
     document.getElementById("the-button").addEventListener("click", (evt) => {
         const score = countScore();
-        console.log("Score it");
         const name = document.getElementById("cert-name").value || "Dr. Emmett Brown";
         const now = Date.now();
         const formattedDate = new Intl.DateTimeFormat(navigator.language).format(now);
@@ -62,7 +61,6 @@ function load() {
             id: makeid(7),
             score,
         };
-        console.log("X", params);
         const url = "/cert.html?" + btoa(JSON.stringify(params));
         window.open(url, '_blank').focus();
     });
