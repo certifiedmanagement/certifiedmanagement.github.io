@@ -42,13 +42,13 @@ function load() {
             return 0;
         }
 
-        return (sum / count).toFixed(1);
+        return (sum / count).toFixed(0);
     }
 
     document.getElementById("the-button").addEventListener("click", (evt) => {
         const score = countScore();
         console.log("Score it");
-        const name = document.getElementById("cert-name").value;
+        const name = document.getElementById("cert-name").value || "Dr. Emmett Brown";
         const now = Date.now();
         const formattedDate = new Intl.DateTimeFormat(navigator.language).format(now);
         const params = {
@@ -75,7 +75,7 @@ window.addEventListener("load", (evt) => {
 <body>
 
 <p>
-    Scrum, Kanban method, SAFe, and LeSS and others – everyone has their own certifications. A group of practicing tech managers organizes our certification path to compete in this challenging area. Choose what you read and obtain the certificate today!
+    Scrum, Kanban method, SAFe, LeSS, and others: everyone has their own certifications. A group of practicing tech managers organizes our certification path to compete in this challenging area. Choose what you read and obtain the certificate today!
 </p>
 
 <h2>Reading list:</h2>
