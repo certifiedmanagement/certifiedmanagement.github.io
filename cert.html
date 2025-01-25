@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>Certificate</title>
+<style>
+body {
+    font-family: "Times New Roman", Times, serif;
+    line-height: 150%;
+    font-size: 18pt;
+}
+
+h1 {
+    font-family: "Arial", serif;
+}
+
+
+@media print and (width: 21cm) and (height: 29.7cm) {
+     @page {
+        margin: 3cm;
+     }
+}
+
+@media print and (width: 8.5in) and (height: 11in) {
+    @page {
+        margin: 1in;
+    }
+}
+
+@page {
+    size: A4 landscape;
+    margin: 10%;
+}
+</style>
+
+<script>
+
+function parseQuery(query) {
+    const based = atob(query);
+    if (!based) {
+        return false;
+    }
+    return JSON.parse(based);
+}
+
+function load() {
+    let query = window.location.search;
+    if (query) {
+        query = query.slice(1);
+    }
+    const params = parseQuery(query);
+
+    document.getElementById("cert-name").textContent = params.name;
+    document.getElementById("cert-number").textContent = params.id;
+    document.getElementById("cert-issued").textContent = params.issued;
+    document.getElementById("cert-score").textContent = params.score;
+};
+
+window.addEventListener("load", (event) => {
+    load();
+})
+</script>
+</head>
+
+<body>
+<div>
+    <h1 style="text-align: center; padding-top: 20%;">
+        Certificate
+    </h1>
+
+    <div style="text-align: center;">
+        Hereby <span id="cert-name" style="font-weight: bold;"></span><br>
+        and <a href="https://certifiedmanagement.org">certifiedmanagement.org</a><br>
+        proudly confirm scoring <span id="cert-score" style="font-weight: bold;"></span>% (out of 100%)<br>
+    </div>
+
+    <div style="text-align: center; padding-bottom: 15%;">
+        Issued on <span id="cert-issued" style="font-weight: bold;"></span><br>
+        Certificate number: <span id="cert-number" style="font-weight: bold;"></span>
+    </div>
+</div>
+</body>
+</html>

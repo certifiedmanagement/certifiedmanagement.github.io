@@ -6,14 +6,79 @@ body {
     font-family: "Times New Roman", Times, serif;
 }
 </style>
+
+<script>
+
+function load() {
+    const elems = document.getElementsByTagName("li");
+    for (let elem of elems) {
+        elem.innerHTML = elem.innerHTML + ' <select><option value="0" selected="selected">I didn\'t read</option><option value="20">I read 1 paragraph AI summary</option><option value="40">I read 2 paragraph AI summary</option><option value="60">I read 3+ paragraph AI summary</option><option value="80">I browsed the book</option><option value="120">I\'ve read the whole book!</option></select>';
+    }
+
+    // Thanks, SO still works: https://stackoverflow.com/a/1349426
+    function makeid(length) {
+        let result = "";
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        const charactersLength = characters.length;
+        let counter = 0;
+        while (counter < length) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            counter += 1;
+        }
+        return result;
+    }
+
+    function countScore() {
+        const elems = document.getElementsByTagName("li");
+        let count = 0;
+        let sum = 0;
+        for (let elem of elems) {
+            const select = elem.getElementsByTagName("select");
+            sum += parseInt(select[0].value);
+            count += 1;
+        }
+
+        if (!count) {
+            return 0;
+        }
+
+        return (sum / count).toFixed(1);
+    }
+
+    document.getElementById("the-button").addEventListener("click", (evt) => {
+        const score = countScore();
+        console.log("Score it");
+        const name = document.getElementById("cert-name").value;
+        const now = Date.now();
+        const formattedDate = new Intl.DateTimeFormat(navigator.language).format(now);
+        const params = {
+            name,
+            issued: formattedDate,
+            id: makeid(7),
+            score,
+        };
+        console.log("X", params);
+        const url = "/cert.html?" + btoa(JSON.stringify(params));
+        window.open(url, '_blank').focus();
+    });
+}
+
+window.addEventListener("load", (evt) => {
+    load();
+});
+
+
+</script>
+
 </head>
 
 <body>
+
 <p>
-    Scrum, Kanban methodology, SAFe, and LeSS all have their own certifications. A group of practicing managers organizes our certification path to compete in this challenging consultancy area.
+    Scrum, Kanban method, SAFe, and LeSS and others – everyone has their own certifications. A group of practicing tech managers organizes our certification path to compete in this challenging area. Choose what you read and obtain the certificate today!
 </p>
 
-<h2>Reading minimum:</h2>
+<h2>Reading list:</h2>
 <p>
     <b>Part. Basics</b>
     <ul>
@@ -36,16 +101,15 @@ body {
         <li>Good Strategy Bad Strategy: The Difference and Why It Matters. Author: Richard Rumelt</li>
     </ul>
 </p>
-<h2>Exams:</h2>
+
+<div style="text-align: center; margin-top: 50pt; margin-bottom: 50pt">
+    <div>My name: <input type="text" name="" placeholder="Dr. Emmett Brown" id="cert-name"></div>
+
+    <div style="margin-top: 20pt;"><input type="submit" id="the-button" value="I want my certificate" style="width: 25%; height: 30pt;" /></div>
+</div>
+
 <p>
-    Examinations happen on a per-part basis once per month before practice with groups of the required size. They are remote video calls. Only written notes are allowed. Groups of candidates discuss the cases together.
-</p>
-<h2>Practice:</h2>
-<p>
-    6-month supervision. Only proven results records are permitted.
-</p>
-<p>
-    <h2>Apply to certification:</h2>
+    <h2>Private guest book:</h2>
     <form action="https://submit-form.com/Hpvfi4gFL">
         <table>
             <tr>
@@ -75,14 +139,14 @@ body {
     </form>
 </p>
 
-<hr>
+<hr style="margin-top: 30pt; margin-bottom: 5pt;">
 
 <div>
-    No trackers, only essential cookies or please leave the website. This weird design from 199x is also a marketing.
+    No trackers, only essential cookies or please leave the website. This weird design from 199x is also for fun.
 </div>
 
 <div>
-    Responsible for the chaos from the 2025 year: Chief Excluder Officer <a href="https://github.com/aptakhin" target="_blank">Alexander "King" Ptakhin</a>. Pull requests and discussions on: <a href="https://github.com/certifiedmanagement/certifiedmanagement.github.io" target="_blank">github.com/certifiedmanagement</a>
+    Responsible for the chaos from the 2025 year: Chief Excluder Officer <a href="https://github.com/aptakhin" target="_blank">Alexander Ptakhin</a>. Pull requests and discussions on: <a href="https://github.com/certifiedmanagement/certifiedmanagement.github.io" target="_blank">github.com/certifiedmanagement</a>
 </div>
 </body>
 
